@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Statement - {{ student.first_name }} {{ student.middle_name }}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <style>
+        /* Styling for buttons and table */
+        .invoice-footer button {
+            margin: 10px 5px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .invoice-footer button:hover {
+            background-color: #45a049;
+        }
+
+        .editable {
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+        
+        @media print {
+            .invoice-footer button { display: none; }
+            body, .invoice-container { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <!-- Invoice Header -->
+        <div class="invoice-header">
+            <div class="school-info">
+                <h1>Adams Junior Academy</h1>
+                <h3>PO Box 179-01100, Kajiado</h3>
+                <h3>Phone: +254 0712674789</h3>
+                <h3>Email: adamsjunioracademy@gmail.com</h3>
+            </div>
+            <h2>Fee Statement for {{ student.first_name }} {{ student.middle_name }}</h2>
+            <h2><strong>Admission Number:</strong> {{ student.admission_number }}</h2>
+            <h2><strong>Grade:</strong> {{ student.grade }}</h2>
+        </div>
+
+        <!-- Fee Breakdown Form -->
+        <form action="/save_invoice/{{ student.id }}" method="POST">
+            <div class="invoice-details">
+                <h3>Fee Breakdown</h3>
+                <table id="fee-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Amount (KSH)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tuition Fee</td>
+                            <td>
+                                <input type="number" name="tuition_fee" value="{% if student.grade == 'Playgroup' %}6500{% elif student.grade in ['Grade1', 'Grade2', 'Grade3'] %}8500{% elif student.grade in ['Grade4', 'Grade5', 'Grade6'] %}9000{% elif student.grade in ['Grade7', 'Grade8', 'Grade9'] %}12000{% else %}0{% endif %}" lass="editable" readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Activity Fee</td>
+                            <td><input type="number" name="activity_fee" value="200" lass="editable" readonly></td>
+                        </tr>
+                        <tr>
+                            <td>School Diary</td>
+                            <td><input type="number" name="diary_fee" value="150" class="editable"></td>
+                        </tr>
+                        <tr>
+                            <td>Food</td>
+                            <td>
+                                <input type="number" name="food_fee" value="{% if student.food %}3500{% else %}0{% endif %}" class="editable">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Exercise Books</td>
+                            <td>
+                                <input type="number" name="exercise_books_fee" value="{{ 1500 if student.exercise_books_fee == 'yearly' else 500 }}" class="editable" readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Transport</td>
+                            <td>
+                                <input type="number" name="transport_fee" value="{% if student.transport_mode == 'OneWay' %}4500{% elif student.transport_mode == 'TwoWayTown' %}7000{% elif student.transport_mode == 'TwoWayUma' %}8000{% else %}0{% endif %}" class="editable">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Assessment Tool</td>
+                            <td><input type="number" name="assessment_tool_fee" value="300"class="editable" readonly></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Total Fee Calculation -->
+                <hr>
+                <p><strong>Total Fee:</strong> KSH <span id="total-fee">0</span></p>
+                <p><strong>Amount Paid:</strong> KSH 
+                    <input type="number" name="amount_paid" value="{{ student.amount_paid or 0 }}" class="editable">
+                </p>
+                <p><strong>Balance:</strong> KSH <span id="balance">0</span></p>
+            </div>
+
+            <!-- Comment Section -->
+            <div class="comment-section">
+                <label for="invoice-comment">Comment:</label>
+                <textarea id="invoice-comment" name="comment" placeholder="Add any comments here...">{{ student.comment }}</textarea>
+            </div>
+
+            <!-- Invoice Footer -->
+            <div class="invoice-footer">
+                <button type="submit">Save Invoice</button>
+                <button type="button" onclick="window.print()">Print Invoice</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function calculateTotals() {
+            const rows = document.querySelectorAll("#fee-table tbody tr");
+            let totalFee = 0;
+            rows.forEach(row => {
+                const input = row.querySelector("input");
+                const amount = parseFloat(input.value.trim()) || 0;
+                totalFee += amount;
+            });
+            const amountPaid = parseFloat(document.querySelector("input[name='amount_paid']").value.trim()) || 0;
+            const balance = totalFee - amountPaid;
+
+            document.getElementById("total-fee").textContent = totalFee.toFixed(2);
+            document.getElementById("balance").textContent = balance.toFixed(2);
+        }
+
+        document.querySelectorAll(".editable").forEach(input => {
+            input.addEventListener("input", calculateTotals);
+        });
+
+        calculateTotals();
+    </script>
+</body>
+</html>

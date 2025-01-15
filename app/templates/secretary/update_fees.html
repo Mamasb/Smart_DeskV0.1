@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Fee Structure</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .flash-message {
+            color: #4CAF50;
+            background-color: #d4edda;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Update Fee Structure</h1>
+
+    <!-- Form to Update Fee Structure -->
+    <form method="POST" id="fee-form">
+        <!-- Grade Field (Optional) -->
+        <label for="grade">Grade:</label>
+        <input type="text" id="grade" name="grade" value="{{ fee_structure.grade or '' }}"><br>
+
+        <!-- Tuition Fee Field (Optional) -->
+        <label for="tuition_fee">Tuition Fee:</label>
+        <input type="number" id="tuition_fee" name="tuition_fee" value="{{ fee_structure.tuition_fee or '' }}"><br>
+
+        <!-- Transport Mode Field (Optional) -->
+        <label for="transport_mode">Transport Mode:</label>
+        <input type="text" id="transport_mode" name="transport_mode" value="{{ fee_structure.transport_mode or '' }}"><br>
+
+        <!-- Transport Fee Field (Optional) -->
+        <label for="transport_fee">Transport Fee:</label>
+        <input type="number" id="transport_fee" name="transport_fee" value="{{ fee_structure.transport_fee or '' }}"><br>
+
+        <!-- Text Book Fee Field (Optional) -->
+        <label for="text_book_fee">Text Book Fee:</label>
+        <input type="number" id="text_book_fee" name="text_book_fee" value="{{ fee_structure.text_book_fee or '' }}"><br>
+
+        <!-- Exercise Book Fee Field (Optional) -->
+        <label for="exercise_book_fee">Exercise Book Fee:</label>
+        <input type="number" id="exercise_book_fee" name="exercise_book_fee" value="{{ fee_structure.exercise_book_fee or '' }}"><br>
+
+        <!-- Assessment Tool Fee Field (Optional, only for non-Playgroup grades) -->
+        {% if fee_structure.grade != 'Playgroup' %}
+        <label for="assessment_tool_fee">Assessment Tool Fee:</label>
+        <input type="number" id="assessment_tool_fee" name="assessment_tool_fee" value="{{ fee_structure.assessment_tool_fee or '' }}"><br>
+        {% endif %}
+
+        <!-- School Diary Fee Field -->
+        <label for="school_diary_fee">School Diary Fee:</label>
+        <input type="number" id="school_diary_fee" name="school_diary_fee" value="{{ fee_structure.school_diary_fee or '' }}"><br>
+		
+        <!-- School Activity Fee Field -->
+        <label for="activity_fee">Activity Fee:</label>
+        <input type="number" id="activity_fee" name="activity_fee" value="{{ fee_structure.activity_fee or '' }}"><br>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Display Flash Message -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-message">
+                <ul>
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endwith %}
+
+</body>
+</html>

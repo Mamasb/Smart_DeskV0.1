@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Details</title>
+</head>
+<body>
+    <h1>Invoice Details</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Fee Description</th>
+                <th>Amount</th>
+                <th>Paid</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for invoice in invoices %}
+            <tr>
+                <td>{{ invoice.fee_description }}</td>
+                <td>{{ invoice.amount }}</td>
+                <td>{{ invoice.paid }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

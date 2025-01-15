@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Routes</title>
+</head>
+<body>
+    <h1>Expense Routes</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Expense Type</th>
+                <th>Amount</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense.type }}</td>
+                <td>{{ expense.amount }}</td>
+                <td>{{ expense.details }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

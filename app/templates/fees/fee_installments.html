@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Installments</title>
+</head>
+<body>
+    <h1>Fee Installments</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Installment Name</th>
+                <th>Amount</th>
+                <th>Due Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for installment in installments %}
+            <tr>
+                <td>{{ installment.name }}</td>
+                <td>{{ installment.amount }}</td>
+                <td>{{ installment.due_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

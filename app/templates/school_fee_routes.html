@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Fee Routes</title>
+</head>
+<body>
+    <h1>School Fee Routes</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Route Name</th>
+                <th>Destination</th>
+                <th>Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for route in fee_routes %}
+            <tr>
+                <td>{{ route.route_name }}</td>
+                <td>{{ route.destination }}</td>
+                <td>{{ route.cost }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

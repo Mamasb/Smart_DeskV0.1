@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Fees</title>
+</head>
+<body>
+    <h1>School Fees</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Fee Amount</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fee in school_fees %}
+            <tr>
+                <td>{{ fee.student_name }}</td>
+                <td>{{ fee.fee_value }}</td>
+                <td>
+                    <a href="#">Edit</a>
+                    <a href="#">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

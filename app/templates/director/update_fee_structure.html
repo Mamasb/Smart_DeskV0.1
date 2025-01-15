@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Fee Structure</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        h1, h2 {
+		            text-align: center;
+            color: #2c3e50;
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Flash Messages */
+        .alert {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .alert.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert.danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .alert.warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        /* Form Styling */
+        form {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input, button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Fee Structures */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #ecf0f1;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            input, button {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            h1, h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Update Fee Structure</h1>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div>
+                    {% for category, message in messages %}
+                        <div class="alert {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Form for Fee Structure -->
+        <form method="POST">
+    <!-- Grade and other fee fields -->
+    <input type="text" name="grade" placeholder="Grade">
+    <input type="text" name="tuition_fee" placeholder="Tuition Fee">
+    <input type="text" name="school_fees" placeholder="School Fees">
+    <input type="text" name="activity_fees" placeholder="Activity Fees">
+    
+    <!-- Transport selection -->
+    <label for="transport_fee">Select Transport Mode</label>
+    <select name="transport_fee_id">
+        {% for transport in transport_fees %}
+        <option value="{{ transport.id }}">{{ transport.mode }} - {{ transport.fee }}</option>
+        {% endfor %}
+    </select>
+    
+    <!-- Food selection (multiple options) -->
+    <label for="food_fees">Select Food Items</label>
+    <select name="food_fee_ids" multiple>
+        {% for food in food_fees %}
+        <option value="{{ food.id }}">{{ food.item }} - {{ food.fee }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- Submit button -->
+    <button type="submit">Update Fee Structure</button>
+</form>
+
+
+        <!-- Existing Fee Structures -->
+        <h2>Existing Fee Structures</h2>
+        <ul>
+            {% for fee in fee_structures %}
+                <li>
+                    <strong>Grade:</strong> {{ fee.grade }},
+                    <strong>Tuition Fee:</strong> {{ fee.tuition_fee | default('N/A') }},
+                    <strong>Transport Fee:</strong> {{ fee.transport_fee | default('N/A') }},
+                    <strong>Textbook Fee:</strong> {{ fee.text_books_fee | default('N/A') }},
+                    <strong>School Fees:</strong> {{ fee.school_fees | default('N/A') }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
+
+           
+

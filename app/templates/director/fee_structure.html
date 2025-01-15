@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fee Structure</title>
+</head>
+<body>
+    <h1>Fee Structure</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Grade</th>
+                <th>Tuition Fee</th>
+                <th>Textbook Fee</th>
+                <th>Exercise Book Fee</th>
+                <th>Assessment Tool Fee</th>
+                <th>Activity Fee</th>
+                <th>School Diary Fee</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fee in fee_structure %}
+                <tr>
+                    <td>{{ fee.grade }}</td>
+                    <td>{{ fee.tuition_fee }}</td>
+                    <td>{{ fee.text_books_fee }}</td>
+                    <td>{{ fee.exercise_books_fee }}</td>
+                    <td>{{ fee.assesment_tool_fee }}</td>
+                    <td>{{ fee.activity_fees }}</td>
+                    <td>{{ fee.school_diary }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('add_fee') }}">Add Fee</a>
+</body>
+</html>

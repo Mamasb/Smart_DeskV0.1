@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses</title>
+</head>
+<body>
+    <h1>Expenses</h1>
+    <ul>
+        {% for expense in expenses %}
+            <li>{{ expense.description }} - {{ expense.amount }} - {{ expense.expense_type }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('expense_routes.add_expense') }}">Add New Expense</a>
+</body>
+</html>

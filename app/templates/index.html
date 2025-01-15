@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask App Index</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Flask Application</h1>
+    </header>
+
+    <section>
+        <h2>Links to Templates</h2>
+        <ul>
+            <!-- Main Templates -->
+            <li><a href="{{ url_for('main_routes.index') }}">Main Page (index.html)</a> - The landing page of the application</li>
+
+
+            <!-- Accountant Templates -->
+            <li><a href="{{ url_for('accountant.index') }}">Accountant Dashboard</a> - Template for the accountant dashboard and related pages</li>
+
+            <!-- Director Templates -->
+            <li><a href="{{ url_for('director.fee_structure') }}">Fee Structure</a> - Template to view and update the fee structure</li>
+            <li><a href="{{ url_for('director.student_list') }}">Student List</a> - View the list of students and their details</li>
+            <li><a href="{{ url_for('director.update_fee_structure') }}">Update Fee Structure</a> - Update the fee structure for the school</li>
+
+            <!-- Expenses Templates -->
+            <li><a href="{{ url_for('expenses.expenses') }}">Expenses</a> - Template to manage and view school expenses</li>
+            <li><a href="{{ url_for('expenses.expenses_list') }}">Expenses List</a> - View a list of all recorded expenses</li>
+
+            <!-- Fees Templates -->
+            <li><a href="{{ url_for('fees.fees') }}">Fees Overview</a> - A comprehensive view of all fees, including details</li>
+            <li><a href="{{ url_for('fees.fee_details') }}">Fee Details</a> - View specific details for each fee</li>
+            <li><a href="{{ url_for('fees.fee_installments') }}">Fee Installments</a> - Manage and view fee installment options</li>
+            <li><a href="{{ url_for('fees.school_fees') }}">School Fees</a> - View school fees breakdown</li>
+
+            <!-- Finance Templates -->
+            <li><a href="{{ url_for('finance.finance') }}">Finance Overview</a> - View financial reports and summaries</li>
+            <li><a href="{{ url_for('finance.payroll') }}">Payroll</a> - View and manage payroll details for school staff</li>
+
+            <!-- Invoice Templates -->
+            <li><a href="{{ url_for('invoice.invoice') }}">Invoice Management</a> - Manage and view student invoices</li>
+            <li><a href="{{ url_for('invoice.view_invoice') }}">View Invoice</a> - Template to view a specific invoice details</li>
+
+            <!-- Secretary Templates -->
+            <li><a href="{{ url_for('secretary.manage_students') }}">Manage Students</a> - Template for managing student records</li>
+            <li><a href="{{ url_for('secretary.add_student') }}">Add New Student</a> - Add a new student to the system</li>
+            <li><a href="{{ url_for('secretary.create_invoice') }}">Create Invoice</a> - Generate invoices for students</li>
+
+            <!-- Student Templates -->
+            <li><a href="{{ url_for('students.student_login') }}">Student Login</a> - Login page for students</li>
+            <li><a href="{{ url_for('students.student_portal') }}">Student Portal</a> - Dashboard for students to view their information and invoices</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>Developed by Moe | <a href="mailto:moe@example.com">Contact</a></p>
+    </footer>
+</body>
+</html>
